@@ -1,62 +1,49 @@
 import numpy as np
+
+# Clase con las características de la neurona
+
 class Neuron:
-
-  RELU = "relu"
-  TANH = "tanh"
-  SIGMOID = "sigmoid"
-
+  
+  # CONSTRUCTOR
   def __init__(self, weights, bias, func):
-    self.weights = self.__CheckNpArray(weights)
+    self.weights = weights
     self.bias = bias
     self.func = func
-
+  
+  # MÉTODO PRINCIPAL PARA EL CÁLCULO DE LA NEURONA
   def run(self, input_data):
-    input_data = self.__CheckNpArray(input_data)
-    if(self.__checkLen(input_data)):
-      y = np.dot(input_data, self.weights) + self.bias
-      y = self.__applyActivationFunction(y)
-      return y
-    else:
-      raise Exception("Faltan parámetros")
-  
-  def __applyActivationFunction(self, value):
-    if (self.func == Neuron.RELU):
-      return self.__reluFunction(value)
-    elif (self.func == Neuron.SIGMOID):
-      return self.__sigmoidFunction(value)
-    elif (self.func == Neuron.TANH):
-      return self.__tanhFunction(value)
-    else:
-      raise Exception("No existe la función de activación")
+    result = np.dot(np.array(input_data), self.weights) + self.bias
 
-  def changeBias(self, bias):
+    if self.func == "sigmoid":
+      return self.__sigmoid_function(result)
+    elif self.func == "relu":
+      return self.__relu_function(result)
+    elif self.func == "tanh":
+      return self.__tanh_function(result)
+    else:
+      print("Elige una función de activación correcta")
+
+  # MÉTODOS PARA EL CAMBIO DE PARÁMETROS
+  
+  def change_bias(self, bias):
     self.bias = bias
   
-  def changeWeights(self, weights):
-    self.weights = self.__CheckNpArray(weights)
+  def change_weights(self, weights):
+    self.weights = weights
   
-  def changeFunction(self, func):
-    self.func = func
-
+  def change_function(self, function):
+    self.fuction = function
+  
+  # FUNCIONES DE ACTIVACIÓN
   @staticmethod
-  def __reluFunction(value):
-    return max(0.0, value)
-
-  @staticmethod
-  def __sigmoidFunction(value):
-    return 1/(1 + np.exp(-value))
+  def __sigmoid_function(x):
+    return 1/(1 + np.exp(-x))
   
   @staticmethod
-  def __tanhFunction(value):
-    return np.tanh(value)
+  def __relu_function(x):
+    return max(0.0, x)
   
-  def __checkLen(self, x):
-    if(self.weights.size == x.size):
-      return True
-    else:
-      return False
-  
-  def __CheckNpArray(self, array):
-    if (type(array) == list):
-      return np.array(array)
+  @staticmethod
+  def __tanh_function(x):
+    return np.tanh(x)
 
