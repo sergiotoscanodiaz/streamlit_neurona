@@ -9,27 +9,37 @@ st.image(image)
 
 st.header("Simulador de neurona")
 
-num = st.slider("Elige el número de entradas/pesos que tendrá la neurona", 1, 10)
+# Valores totales de las entradas y los pesos
+
+values = st.slider("Elige el número de entradas/pesos que tendrá la neurona", 1, 10)
+
+# PESOS
 
 st.subheader("Pesos")
-w = []
-col_w = st.columns(num)
+weights = []
+col_weight = st.columns(values)
 
-for i in range(num):
-    w.append(i)
+for i in range(values):
+    weights.append(i)
 
-    with col_w[i]:
-        w[i] = st.number_input(f"w_input_{i}", label_visibility="collapsed")
+    with col_weight[i]:
+        weights[i] = st.number_input(f"w{i}")
+
+# ENTRADAS 
 
 st.subheader("Entradas")
 x = []
-col_x = st.columns(num)
+col_x = st.columns(values)
 
-for i in range(num):
+for i in range(values):
     x.append(i)
 
     with col_x[i]:
-        x[i] = st.number_input(f"x_input_{i}", label_visibility="collapsed")
+        x[i] = st.number_input(f"x{i}")
+
+# SESGO Y FUNCIÓN DE ACTIVACIÓN
+
+functions = {'sigmoid': 'sigmoid', 'relu': 'relu', 'tanh': 'tanh'}
 
 col1, col2 = st.columns(2)
 with col1:
@@ -37,12 +47,10 @@ with col1:
     b = st.number_input("Introduzca el valor del sesgo")
 with col2:
     st.subheader("Función de activación")
-    function = st.selectbox('Introduzca el valor del sesgo', ['Sigmoide', 'ReLU', 'Tangente hiperbólica'])
-
-
-FUNCTIONS = {'Sigmoide': 'sigmoid', 'ReLU': 'relu', 'Tangente hiperbólica': 'tanh'}
+    func = st.selectbox('Introduzca el valor del sesgo', ['sigmoid', 'relu', 'tanh'])
 
 if st.button("Calcular la salida"):
-    my_neuron = ne.Neuron(weights=w, bias=b, func=FUNCTIONS[function])
+    my_neuron = ne.Neuron(weights=weights, bias=b, func=functions[func])
     st.text(f"La salida de la neurona es {my_neuron.run(input_data=x)}")
+
 
