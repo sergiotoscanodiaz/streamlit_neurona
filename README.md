@@ -9,5 +9,9 @@ Aplicación con Python y Streamlit "Neurona genérica" con las siguientes caract
 - Sesgo
 - Función de activación
 
-En este enlace puedes probar la aplicación: 
+Ejemplo de neurona genérica:
+
+![ejemplo](ejemplo.png)
+
+En este enlace se puede ver la aplicación en funcionamiento: 
 https://sergiotoscanodiaz-streamlit-neurona-app-omz6w0.streamlit.app/
