@@ -48,6 +48,8 @@ with col1:
 with col2:
     st.subheader("Función de activación")
     func = st.selectbox('Introduzca el valor del sesgo', ['sigmoid', 'relu', 'tanh'])
+    
+# CÁLCULO DE LA NEURONA USANDO LA CLASE NEURONA CON LOS PARÁMETROS ESTABLECIDOS
 
 if st.button("Calcular la salida"):
     my_neuron = ne.Neuron(weights=weights, bias=b, func=functions[func])
